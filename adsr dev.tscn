@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd1mawqa4a1sf"]
+
+[ext_resource type="Script" path="res://adsrTest.gd" id="1_tthi1"]
+[ext_resource type="Texture2D" uid="uid://bembte2nojyxw" path="res://icon.svg" id="2_8u58a"]
+[ext_resource type="Script" path="res://ADSREnvelope.gd" id="3_awoys"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("adsr", "sprite", "targetPoint", "stateLabel", "valueLabel")]
+script = ExtResource("1_tthi1")
+adsr = NodePath("ADSREnvelope")
+sprite = NodePath("Sprite2D")
+targetPoint = NodePath("Node2D")
+stateLabel = NodePath("Label")
+valueLabel = NodePath("Label2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(101, 391)
+texture = ExtResource("2_8u58a")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(527, 80)
+
+[node name="ADSREnvelope" type="Node" parent="."]
+script = ExtResource("3_awoys")
+attack_ease_type = 9
+decay_time = 0.0
+release_ease_type = 10
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+text = "sexo"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 28.0
+offset_right = 41.0
+offset_bottom = 54.0
+size_flags_horizontal = 3
+text = "sexo"
+
+[connection signal="attack_started" from="ADSREnvelope" to="." method="_on_adsr_envelope_attack_started"]
+[connection signal="decay_started" from="ADSREnvelope" to="." method="_on_adsr_envelope_decay_started"]
+[connection signal="delay_started" from="ADSREnvelope" to="." method="_on_adsr_envelope_delay_started"]
+[connection signal="finished" from="ADSREnvelope" to="." method="_on_adsr_envelope_finished"]
+[connection signal="release_started" from="ADSREnvelope" to="." method="_on_adsr_envelope_release_started"]
+[connection signal="sustain_started" from="ADSREnvelope" to="." method="_on_adsr_envelope_sustain_started"]
